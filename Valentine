@@ -1,0 +1,253 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love ❤️</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:black;
+    overflow:hidden;
+    color:white;
+    text-align:center;
+}
+
+/* START SCREEN */
+#startScreen{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#ff4e8a,#D61919);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:10;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+}
+
+#startScreen img{
+    width:220px;
+    height:220px;
+    border-radius:20px;
+    box-shadow:0 0 30px white;
+    margin-bottom:20px;
+}
+
+/* BUTTONS */
+button{
+    padding:10px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:10px;
+}
+
+#yes{background:#ff4e8a;color:white;}
+#no{background:white;color:#ff4e8a;position:absolute;}
+
+#result{display:none;font-size:20px;margin-top:15px;}
+
+/* HEARTS */
+.heart{
+    position:absolute;
+    color:#FF0056;
+    animation:float 4s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+/* ROSE PETALS */
+.petal{
+    position:fixed;
+    top:-10px;
+    animation:fall linear forwards;
+    z-index:30;
+}
+
+@keyframes fall{
+    0%{transform:translateY(0) rotate(0deg);opacity:1;}
+    100%{transform:translateY(100vh) rotate(360deg);opacity:0;}
+}
+
+/* YES SCREEN */
+#yesScreen{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:20;
+    background:linear-gradient(135deg,#fff,#ffd6e7);
+    overflow:hidden;
+}
+
+/* Sparkle Stars */
+.sparkle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%{opacity:0.2; transform:scale(1);}
+    50%{opacity:1; transform:scale(1.5);}
+    100%{opacity:0.2; transform:scale(1);}
+}
+
+/* Greeting Wrapper */
+.greetingWrapper{
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 0 40px rgba(255,78,138,0.6);
+    text-align:center;
+    z-index:25;
+}
+
+#yesText{
+    font-size:30px;
+    color:#ff4e8a;
+    margin-bottom:15px;
+}
+
+.slide{
+    width:250px;
+    height:300px;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 0 25px pink;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- START PAGE -->
+<div id="startScreen" onclick="startLove()">
+    <img src="/photo3.jpg.jpg">
+    <h1>💖 Tap krke dekho kya hota hai 💖</h1>
+    <p>Touch the screen 😘</p>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<div class="card">
+    <h1>Will You Be Mine? 💍❤️</h1>
+    <p>ishuu bcchee 🫂<br>Thank you mere sath rehne ke liye apna i lovee uhhh meri jaannn tu aise gussa mt hua kr ab shyd tujhe yeh psnd aye yh nh bhi aye kyuki itna kuch khaas hai hi nhi yeh tu gussa nhi kregi pyaar se hug vgra sb kuch krte hai okieee ishuuu drlnggg🫂😘</p>
+
+    <button id="yes" onclick="sayYes()">Yes 💖</button>
+    <button id="no" onmouseover="moveButton()">No 😜</button>
+
+    <div id="result"><br>I Love You soooo muchhhhhh ❤️🫂</div>
+</div>
+
+<!-- YES PAGE -->
+<div id="yesScreen">
+    <div class="greetingWrapper">
+        <div id="yesText">️ Aww uh luv me cutie😘</div>
+        <img id="slideImage" class="slide" src="/kids.jpg.png">
+    </div>
+</div>
+
+<script>
+
+function startLove(){
+    document.getElementById("startScreen").style.display="none";
+    document.getElementById("bgMusic").play();
+}
+
+function sayYes(){
+
+    document.getElementById("result").style.display="block";
+
+    for(let i=0;i<40;i++){createHeart();}
+    for(let i=0;i<30;i++){createPetal();}
+
+    document.body.style.background="linear-gradient(to bottom, black, #ff4e8a)";
+
+    setTimeout(()=>{
+        document.getElementById("yesScreen").style.display="flex";
+        startSlideshow();
+        createSparkles();
+    },2000);
+}
+
+function moveButton(){
+    const btn=document.getElementById("no");
+    btn.style.top=Math.random()*80+"vh";
+    btn.style.left=Math.random()*80+"vw";
+}
+
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+10+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},4000);
+}
+
+function createPetal(){
+    const petal=document.createElement("div");
+    petal.classList.add("petal");
+    petal.innerHTML="🌹";
+    petal.style.left=Math.random()*100+"vw";
+    petal.style.animationDuration=(Math.random()*3+3)+"s";
+    petal.style.fontSize=(Math.random()*20+15)+"px";
+    document.body.appendChild(petal);
+    setTimeout(()=>{petal.remove();},6000);
+}
+
+/* Sparkle Creator */
+function createSparkles(){
+    for(let i=0;i<30;i++){
+        const star=document.createElement("div");
+        star.classList.add("sparkle");
+        star.style.top=Math.random()*100+"%";
+        star.style.left=Math.random()*100+"%";
+        star.style.animationDuration=(Math.random()*3+2)+"s";
+        document.getElementById("yesScreen").appendChild(star);
+    }
+}
+
+let photos=["/ishu.jpg","/girl.jng.jpg","/suit.jng.png","/couple.jng.png"];
+let index=0;
+
+function startSlideshow(){
+    setInterval(()=>{
+        index++;
+        if(index>=photos.length){index=0;}
+        document.getElementById("slideImage").src=photos[index];
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
